@@ -8,7 +8,7 @@ import InfoMenuStore from './infoMenuStore';
 import ProgramStore from './programStore';
 
 type Language = 'de' | 'cz' | 'ru';
-export const language: Language = 'de';
+export const language: Language = 'ru';
 
 class RootStore {
   infoMenuStore: InfoMenuStore;
