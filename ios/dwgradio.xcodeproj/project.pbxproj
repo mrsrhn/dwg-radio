@@ -355,7 +355,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = mariusrhein.DWGRadio;
+				PRODUCT_BUNDLE_IDENTIFIER = mariusrhein.DWGRadioRU;
 				PRODUCT_NAME = dwgradio;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -387,7 +387,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = mariusrhein.DWGRadio;
+				PRODUCT_BUNDLE_IDENTIFIER = mariusrhein.DWGRadioRU;
 				PRODUCT_NAME = dwgradio;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
