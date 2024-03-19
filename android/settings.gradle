@@ -21,7 +21,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   }
 }
 
-rootProject.name = 'DWG Radio'
+rootProject.name = 'DWG Radio CZ'
 
 dependencyResolutionManagement {
   versionCatalogs {
