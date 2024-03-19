@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DWG Radio",
-    "slug": "dwg-radio",
+    "name": "DWG Radio CZ",
+    "slug": "dwg-radio-cz",
     "version": "3.1.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,16 +14,15 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "mariusrhein.DWGRadio",
+      "bundleIdentifier": "mariusrhein.DWGRadioCZ",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": "NO",
         "UIBackgroundModes": ["audio"]
       }
     },
     "android": {
-      "icon": "./assets/icon_android.png",
       "versionCode": 36,
-      "package": "net.dwg_load.dwgload.de"
+      "package": "net.dwg_load.dwgload.cs"
     },
     "web": {
       "favicon": "./assets/favicon.png"
