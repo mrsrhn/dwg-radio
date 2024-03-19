@@ -13,7 +13,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "mariusrhein.DWGRadio"
+      "bundleIdentifier": "mariusrhein.DWGRadioCZ"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +25,8 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-asset"]
+    "plugins": [
+      "expo-asset"
+    ]
   }
 }
