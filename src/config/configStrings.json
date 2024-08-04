@@ -1,6 +1,7 @@
 {
   "de": {
     "noConnectionMessage": "Keine Internetverbindung",
+    "program": "Programm",
     "lastPlayedString": "Historie",
     "sleepTimer": "Einschlaf-Timer",
     "minutes": "Minuten",
@@ -35,6 +36,7 @@
   },
   "cz": {
     "noConnectionMessage": "Žádné připojení k internetu",
+    "program": "Naposledy přehráno",
     "lastPlayedString": "Naposledy přehráno",
     "sleepTimer": "Časovač vypnutí",
     "minutes": "Minuty",
@@ -69,6 +71,7 @@
   },
   "ru": {
     "noConnectionMessage": "Отсутствует подключение к интернету",
+    "program": "История",
     "lastPlayedString": "История",
     "sleepTimer": "Таймер сна",
     "minutes": "Минут",

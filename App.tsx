@@ -13,6 +13,14 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        gcTime: 0,
+      },
+    },
+  });
+
   return (
     <QueryClientProvider client={queryClient}>
       <StoreProvider>
