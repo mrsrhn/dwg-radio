@@ -36,8 +36,8 @@ const useRadioProgram = (
 
   const currentlyPlaying = isShowingProgramForToday
     ? splittedProgramItems[selectedProgramIndex].findLastIndex(
-        (item) => item.program_timestamp < currentTime.toISOString()
-      )
+      (item) => item.program_timestamp < currentTime.toISOString()
+    )
     : undefined;
 
   const dataToDisplay = useMemo(

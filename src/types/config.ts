@@ -28,6 +28,7 @@ interface ConfigBase {
 }
 
 interface ConfigStrings {
+  program: string;
   lastPlayedString: string;
   sleepTimer: string;
   minutes: string;
