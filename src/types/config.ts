@@ -6,7 +6,9 @@ export interface Config {
 interface Link {
   name: string;
   url: string;
+  urlAndroid?: string;
   icon: string;
+  iconAndroid?: string;
 }
 
 interface ConfigBase {
