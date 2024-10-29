@@ -6,7 +6,7 @@ import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
 import React, { Ref } from 'react';
-import { StyleSheet, Linking, Text, Dimensions } from 'react-native';
+import { StyleSheet, Linking, Text, Dimensions, Platform } from 'react-native';
 import Colors from '../Colors';
 import useConfig from '../hooks/useConfig';
 import useStores from '../hooks/useStores';
@@ -53,9 +53,19 @@ const InfoMenuBottomSheet = observer(
               return (
                 <InfoMenuButton
                   key={`button_${button.name}`}
-                  iconName={button.icon}
+                  iconName={
+                    Platform.OS === 'android'
+                      ? button.iconAndroid ?? button.icon
+                      : button.icon
+                  }
                   title={button.name}
-                  onPress={() => Linking.openURL(button.url)}
+                  onPress={() =>
+                    Linking.openURL(
+                      Platform.OS === 'android'
+                        ? button.urlAndroid ?? button.url
+                        : button.url
+                    )
+                  }
                 />
               );
             }

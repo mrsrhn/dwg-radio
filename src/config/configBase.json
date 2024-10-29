@@ -14,7 +14,9 @@
         {
           "name": "DWGload - Predigtdatenbank",
           "url": "https://apps.apple.com/us/app/dwg-load/id1470039790",
-          "icon": "logo-apple-appstore"
+          "urlAndroid": "https://play.google.com/store/apps/details?id=net.dwgload.de",
+          "icon": "logo-apple-appstore",
+          "iconAndroid": "logo-google-playstore"
         },
         {
           "name": "Über uns",
