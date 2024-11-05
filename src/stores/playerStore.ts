@@ -31,6 +31,8 @@ class PlayerStore {
 
   currentMetaData: unknown = undefined;
 
+  activeTrackIndex = 1;
+
   constructor(config: Config) {
     makeObservable(this, {
       isPlaying: observable,
@@ -38,6 +40,7 @@ class PlayerStore {
       selectedChannel: observable,
       currentMetaData: observable,
       isConnected: observable,
+      activeTrackIndex: observable,
     });
     this.config = config;
     this.init();
@@ -95,15 +98,16 @@ class PlayerStore {
     this.selectedChannel = channel;
   });
 
-  updateChannel = async (selectedChannel: Channel) => {
-    const currentTrack = await TrackPlayer.getActiveTrackIndex();
-    if (currentTrack === undefined) return;
+  setActiveTrackIndex = action((activeTrackIndex: number) => {
+    this.activeTrackIndex = activeTrackIndex;
+  });
 
+  updateChannel = async (selectedChannel: Channel) => {
     switch (selectedChannel) {
       case 'lyra':
-        if (currentTrack === 0) {
+        if (this.activeTrackIndex === 0) {
           break;
-        } else if (currentTrack === 1) {
+        } else if (this.activeTrackIndex === 1) {
           TrackPlayer.skipToPrevious();
           break;
         } else {
@@ -112,21 +116,21 @@ class PlayerStore {
           break;
         }
       case 'radio':
-        if (currentTrack === 0) {
+        if (this.activeTrackIndex === 0) {
           TrackPlayer.skipToNext();
           break;
-        } else if (currentTrack === 1) {
+        } else if (this.activeTrackIndex === 1) {
           break;
         } else {
           TrackPlayer.skipToPrevious();
           break;
         }
       case 'pur':
-        if (currentTrack === 0) {
+        if (this.activeTrackIndex === 0) {
           await TrackPlayer.skipToNext();
           TrackPlayer.skipToNext();
           break;
-        } else if (currentTrack === 1) {
+        } else if (this.activeTrackIndex === 1) {
           TrackPlayer.skipToNext();
           break;
         } else {
@@ -170,6 +174,13 @@ class PlayerStore {
     TrackPlayer.addEventListener(Event.RemotePlay, async () => {
       this.seekToLivePosition();
     });
+    TrackPlayer.addEventListener(
+      Event.PlaybackActiveTrackChanged,
+      async (e) => {
+        if (e.index === undefined) return;
+        this.setActiveTrackIndex(e.index);
+      }
+    );
     TrackPlayer.addEventListener(
       Event.PlaybackState,
       this.onPlaybackStateChange

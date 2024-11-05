@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   Animated,
@@ -90,25 +90,6 @@ const DWGPager = observer(() => {
         break;
     }
   };
-
-  useEffect(() => {
-    switch (playerStore.selectedChannel) {
-      case 'lyra':
-        pagerRef.current?.setPage(0);
-        onPageSelect(0);
-        break;
-      case 'radio':
-        pagerRef.current?.setPage(1);
-        onPageSelect(1);
-        break;
-      case 'pur':
-        pagerRef.current?.setPage(2);
-        onPageSelect(2);
-        break;
-      default:
-        break;
-    }
-  }, [playerStore.selectedChannel, onPageSelect]);
 
   const { width } = Dimensions.get('window');
   const scrollOffsetAnimatedValue = React.useRef(new Animated.Value(0)).current;
