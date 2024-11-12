@@ -36,7 +36,7 @@ const DWGBottomSheet: React.FC<DWGBottomSheetProps> = observer(
           }}
         >
           {configBase.showProgramForRadio &&
-          playerStore.selectedChannel === 'radio' ? (
+          playerStore.selectedChannelKey === 'radio' ? (
             <ProgramView />
           ) : (
             <HistoryView />

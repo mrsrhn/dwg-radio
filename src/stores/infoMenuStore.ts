@@ -24,7 +24,7 @@ class InfoMenuStore {
 
   get channelInfo(): ChannelInfo {
     const { configStrings } = this.config;
-    switch (this.playerStore.selectedChannel) {
+    switch (this.playerStore.selectedChannelKey) {
       case 'radio':
         return {
           title: configStrings.radio,

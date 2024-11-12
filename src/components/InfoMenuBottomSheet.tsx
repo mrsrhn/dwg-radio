@@ -41,13 +41,13 @@ const InfoMenuBottomSheet = observer(
           <Text style={styles.infoString}>
             {infoMenuStore.channelInfo.infoString}
           </Text>
-          {configBase.additionalInfosLinks[playerStore.selectedChannel].length >
-            0 && (
+          {configBase.additionalInfosLinks[playerStore.selectedChannelKey]
+            .length > 0 && (
             <Text style={styles.sectionTitle}>
               {configStrings.additionalLinks}
             </Text>
           )}
-          {configBase.additionalInfosLinks[playerStore.selectedChannel].map(
+          {configBase.additionalInfosLinks[playerStore.selectedChannelKey].map(
             (button) => {
               if (!button.url) return null;
               return (

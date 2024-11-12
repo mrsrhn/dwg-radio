@@ -36,34 +36,24 @@ const DWGPager = observer(() => {
 
   const onPageSelect = useCallback(
     (page: number) => {
-      switch (page) {
-        case 0:
-          playerStore.updateChannel('lyra');
-          break;
-        case 1:
-          playerStore.updateChannel('radio');
-          break;
-        case 2:
-          playerStore.updateChannel('pur');
-          break;
-        default:
-          break;
+      if (page >= 0 && page <= 2) {
+        playerStore.updateChannel(page as 0 | 1 | 2);
       }
     },
     [playerStore]
   );
-
+  
   const onGoBack = () => {
     switch (playerStore.selectedChannel) {
-      case 'lyra':
+      case 0:
         pagerRef.current?.setPage(2);
         onPageSelect(2);
         break;
-      case 'radio':
+      case 1:
         pagerRef.current?.setPage(0);
         onPageSelect(0);
         break;
-      case 'pur':
+      case 2:
         pagerRef.current?.setPage(1);
         onPageSelect(1);
         break;
@@ -74,15 +64,15 @@ const DWGPager = observer(() => {
 
   const onGoForward = () => {
     switch (playerStore.selectedChannel) {
-      case 'lyra':
+      case 0:
         pagerRef.current?.setPage(1);
         onPageSelect(1);
         break;
-      case 'radio':
+      case 1:
         pagerRef.current?.setPage(2);
         onPageSelect(2);
         break;
-      case 'pur':
+      case 2:
         pagerRef.current?.setPage(0);
         onPageSelect(0);
         break;

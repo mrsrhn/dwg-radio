@@ -106,7 +106,7 @@ class HistoryStore {
   };
 
   updateCurrentHistory = async () => {
-    switch (this.playerStore.selectedChannel) {
+    switch (this.playerStore.selectedChannelKey) {
       case 'lyra':
         this.updateHistoryLyra();
         break;
@@ -122,7 +122,7 @@ class HistoryStore {
   };
 
   get currentHistory() {
-    switch (this.playerStore.selectedChannel) {
+    switch (this.playerStore.selectedChannelKey) {
       case 'radio':
         return this.historyRadio;
       case 'lyra':
