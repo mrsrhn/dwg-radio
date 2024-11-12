@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable, computed } from 'mobx';
 
 import TrackPlayer, {
   Capability,
@@ -10,28 +10,29 @@ import TrackPlayer, {
   IOSCategoryOptions,
   PitchAlgorithm,
   AppKilledPlaybackBehavior,
+  AddTrack,
 } from 'react-native-track-player';
 import * as Network from 'expo-network';
 import { Config } from '../types/config';
 
 export type Channel = 'lyra' | 'radio' | 'pur';
 
+export type ChannelIndex = 0 | 1 | 2;
+
 class PlayerStore {
   isConnected = true;
 
   playbackState: State = State.None;
 
-  isLoaded = false;
-
   isPlaying = false;
 
-  selectedChannel: Channel = 'radio';
+  selectedChannel: ChannelIndex = 1;
 
   config: Config;
 
   currentMetaData: unknown = undefined;
 
-  activeTrackIndex = 1;
+  channels: AddTrack[];
 
   constructor(config: Config) {
     makeObservable(this, {
@@ -40,9 +41,20 @@ class PlayerStore {
       selectedChannel: observable,
       currentMetaData: observable,
       isConnected: observable,
-      activeTrackIndex: observable,
+      selectedChannelKey: computed,
     });
     this.config = config;
+
+    this.channels = [
+      this.config.configBase.urlLyra,
+      this.config.configBase.urlRadio,
+      this.config.configBase.urlPur,
+    ].map((url) => ({
+      url,
+      // Setting Pitchalgorithm is a workaround for this bug: https://github.com/doublesymmetry/react-native-track-player/issues/2124#issuecomment-1729441871
+      pitchAlgorithm: PitchAlgorithm.Voice,
+      isLiveStream: true,
+    }));
     this.init();
   }
 
@@ -69,13 +81,7 @@ class PlayerStore {
       },
     });
 
-    const channels = [
-      this.config.configBase.urlLyra,
-      this.config.configBase.urlRadio,
-      this.config.configBase.urlPur,
-      // Setting Pitchalgorithm is a workaround for this bug: https://github.com/doublesymmetry/react-native-track-player/issues/2124#issuecomment-1729441871
-    ].map((url) => ({ url, pitchAlgorithm: PitchAlgorithm.Voice }));
-    await TrackPlayer.add(channels);
+    await TrackPlayer.add(this.channels);
   };
 
   setIsConnected = action((isConnected: boolean) => {
@@ -90,55 +96,12 @@ class PlayerStore {
     this.isPlaying = isPlaying;
   });
 
-  setIsLoaded = action((isLoaded: boolean) => {
-    this.isLoaded = isLoaded;
-  });
-
-  setSelectedChannel = action((channel: Channel) => {
+  setSelectedChannel = action((channel: ChannelIndex) => {
     this.selectedChannel = channel;
   });
 
-  setActiveTrackIndex = action((activeTrackIndex: number) => {
-    this.activeTrackIndex = activeTrackIndex;
-  });
-
-  updateChannel = async (selectedChannel: Channel) => {
-    switch (selectedChannel) {
-      case 'lyra':
-        if (this.activeTrackIndex === 0) {
-          break;
-        } else if (this.activeTrackIndex === 1) {
-          TrackPlayer.skipToPrevious();
-          break;
-        } else {
-          await TrackPlayer.skipToPrevious();
-          TrackPlayer.skipToPrevious();
-          break;
-        }
-      case 'radio':
-        if (this.activeTrackIndex === 0) {
-          TrackPlayer.skipToNext();
-          break;
-        } else if (this.activeTrackIndex === 1) {
-          break;
-        } else {
-          TrackPlayer.skipToPrevious();
-          break;
-        }
-      case 'pur':
-        if (this.activeTrackIndex === 0) {
-          await TrackPlayer.skipToNext();
-          TrackPlayer.skipToNext();
-          break;
-        } else if (this.activeTrackIndex === 1) {
-          TrackPlayer.skipToNext();
-          break;
-        } else {
-          break;
-        }
-      default:
-        break;
-    }
+  updateChannel = async (selectedChannel: ChannelIndex) => {
+    TrackPlayer.load(this.channels[selectedChannel]);
     this.setSelectedChannel(selectedChannel);
   };
 
@@ -168,19 +131,12 @@ class PlayerStore {
   };
 
   private registerEvents = () => {
-    TrackPlayer.addEventListener(Event.PlaybackMetadataReceived, (metadata) =>
-      this.setCurrentMetaData(metadata)
-    );
+    TrackPlayer.addEventListener(Event.MetadataCommonReceived, (metadata) => {
+      this.setCurrentMetaData(metadata);
+    });
     TrackPlayer.addEventListener(Event.RemotePlay, async () => {
       this.seekToLivePosition();
     });
-    TrackPlayer.addEventListener(
-      Event.PlaybackActiveTrackChanged,
-      async (e) => {
-        if (e.index === undefined) return;
-        this.setActiveTrackIndex(e.index);
-      }
-    );
     TrackPlayer.addEventListener(
       Event.PlaybackState,
       this.onPlaybackStateChange
@@ -234,6 +190,10 @@ class PlayerStore {
       }
     }, 3000);
   };
+
+  get selectedChannelKey(): 'lyra' | 'radio' | 'pur' {
+    return this.selectedChannel === 0 ? 'lyra' : this.selectedChannel === 1 ? 'radio' : 'pur';
+  }
 }
 
 export default PlayerStore;
