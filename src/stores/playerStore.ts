@@ -14,6 +14,7 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import * as Network from 'expo-network';
 import { Config } from '../types/config';
+import { AudioMetadataReceivedEvent } from 'react-native-track-player/lib/src/interfaces/events/AudioMetadataReceivedEvent';
 
 export type Channel = 'lyra' | 'radio' | 'pur';
 
@@ -88,7 +89,7 @@ class PlayerStore {
     this.isConnected = isConnected;
   });
 
-  setCurrentMetaData = action((metaData: unknown) => {
+  setCurrentMetaData = action((metaData: AudioMetadataReceivedEvent) => {
     this.currentMetaData = metaData;
   });
 
@@ -131,7 +132,7 @@ class PlayerStore {
   };
 
   private registerEvents = () => {
-    TrackPlayer.addEventListener(Event.MetadataCommonReceived, (metadata) => {
+    TrackPlayer.addEventListener(Event.MetadataTimedReceived, (metadata) => {
       this.setCurrentMetaData(metadata);
     });
     TrackPlayer.addEventListener(Event.RemotePlay, async () => {

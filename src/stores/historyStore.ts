@@ -46,7 +46,7 @@ class HistoryStore {
       () => this.updateCurrentHistory()
     );
 
-    AppState.addEventListener('change', (state) => {
+    AppState.addEventListener('change', async (state) => {
       if (state === 'active') {
         this.updateCurrentHistory();
       }
@@ -54,9 +54,17 @@ class HistoryStore {
   }
 
   init() {
-    this.updateHistoryRadio();
-    this.updateHistoryLyra();
-    this.updateHistoryPur();
+    this.getHistoryRadio().then(this.updateNowPlayingMetadata)
+    this.getHistoryLyra();
+    this.getHistoryPur();
+  }
+
+  updateNowPlayingMetadata = (historyData: HistoryEntry[]) => {
+    TrackPlayer.updateNowPlayingMetadata({
+      title: historyData[0].title,
+      artist: historyData[0].artist,
+      artwork: require('../../assets/dwgradio.png'),
+    });
   }
 
   setHistoryRadio = action((history: HistoryEntry[]) => {
@@ -71,41 +79,46 @@ class HistoryStore {
     this.historyLyra = history;
   });
 
-  updateHistoryRadio = async () => {
+  getHistoryRadio = async () => {
     const data = await HistoryStore.getHistory(
       this.config.configBase.urlHistoryRadio
     );
     this.setHistoryRadio(data);
+    return data
+  }
 
-    TrackPlayer.updateMetadataForTrack(1, {
-      title: data[0].title,
-      artist: data[0].artist,
-    });
-  };
-
-  updateHistoryLyra = async () => {
+  getHistoryLyra = async () => {
     const data = await HistoryStore.getHistory(
       this.config.configBase.urlHistoryLyra
     );
     this.setHistoryLyra(data);
-    TrackPlayer.updateMetadataForTrack(0, {
-      title: data[0].title,
-      artist: data[0].artist,
-    });
-  };
+    return data
+  }
 
-  updateHistoryPur = async () => {
+  getHistoryPur = async () => {
     const data = await HistoryStore.getHistory(
       this.config.configBase.urlHistoryPur
     );
     this.setHistoryPur(data);
-    TrackPlayer.updateMetadataForTrack(2, {
-      title: data[0].title,
-      artist: data[0].artist,
-    });
+    return data
+  }
+
+  updateHistoryRadio = async () => {
+    this.updateNowPlayingMetadata(this.historyRadio);
+  };
+
+  updateHistoryLyra = async () => {
+    this.updateNowPlayingMetadata(this.historyLyra);
+  };
+
+  updateHistoryPur = async () => {
+    this.updateNowPlayingMetadata(this.historyPur);
   };
 
   updateCurrentHistory = async () => {
+    await Promise.all([this.getHistoryRadio(),
+    this.getHistoryLyra(),
+    this.getHistoryPur()])
     switch (this.playerStore.selectedChannelKey) {
       case 'lyra':
         this.updateHistoryLyra();
