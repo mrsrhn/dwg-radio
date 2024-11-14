@@ -70,6 +70,7 @@ class PlayerStore {
         IOSCategoryOptions.AllowBluetoothA2DP,
         IOSCategoryOptions.InterruptSpokenAudioAndMixWithOthers,
       ],
+      autoHandleInterruptions: true,
     });
 
     this.registerEvents();
