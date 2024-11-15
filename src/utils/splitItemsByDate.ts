@@ -3,7 +3,7 @@ import { de, cs, ru } from 'date-fns/locale';
 import { DwgProgramItem } from '../api/program';
 import { language } from '../stores/rootStore';
 
-const DATE_FORMAT = 'd. MMMM';
+const DATE_FORMAT = 'd. MMM';
 let locale: Locale;
 
 switch (language) {
