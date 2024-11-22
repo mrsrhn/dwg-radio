@@ -65,11 +65,12 @@ const SleepTimerButton = observer(() => {
       accessibilityRole="button"
     >
       <Pressable
-        style={
+        style={({ pressed }) => [
           sleepTimerStore.sleepTimerProgress
             ? styles.containerActive
-            : styles.containerInactive
-        }
+            : styles.containerInactive,
+          pressed && styles.pressed,
+        ]}
       >
         <Ionicons
           name="timer-outline"
@@ -111,6 +112,9 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  pressed: {
+    opacity: 0.5,
   },
 });
 

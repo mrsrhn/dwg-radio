@@ -48,27 +48,32 @@ const PlayerControls: React.FC<PlayerControlsProps> = observer(
             }
             accessibilityRole="button"
           >
-            <View
-              style={{
-                height: PLAYBUTTON_SIZE,
-              }}
-            >
-              {isBuffering ? (
-                <ActivityIndicator
-                  color={Colors.dwgDarkColor}
-                  size={PLAYBUTTON_SIZE}
-                />
-              ) : (
-                <MaterialIcons
-                  color={Colors.dwgDarkColor}
-                  style={{
+            {({ pressed }) => (
+              <View
+                style={[
+                  {
                     height: PLAYBUTTON_SIZE,
-                  }}
-                  size={PLAYBUTTON_SIZE}
-                  name={playButtonIconName}
-                />
-              )}
-            </View>
+                  },
+                  pressed && styles.pressed,
+                ]}
+              >
+                {isBuffering ? (
+                  <ActivityIndicator
+                    color={Colors.dwgDarkColor}
+                    size={PLAYBUTTON_SIZE}
+                  />
+                ) : (
+                  <MaterialIcons
+                    color={Colors.dwgDarkColor}
+                    style={{
+                      height: PLAYBUTTON_SIZE,
+                    }}
+                    size={PLAYBUTTON_SIZE}
+                    name={playButtonIconName}
+                  />
+                )}
+              </View>
+            )}
           </Pressable>
         </View>
         <View style={styles.sideButtonsContainer}>
@@ -78,11 +83,14 @@ const PlayerControls: React.FC<PlayerControlsProps> = observer(
             accessibilityLabel={configStrings.accessOpenInfoMenu}
             accessibilityRole="button"
           >
-            <Ionicons
-              name="ellipsis-horizontal-circle-outline"
-              size={30}
-              color={Colors.dwgDarkColor}
-            />
+            {({ pressed }) => (
+              <Ionicons
+                name="ellipsis-horizontal-circle-outline"
+                size={30}
+                color={Colors.dwgDarkColor}
+                style={[pressed && styles.pressed]}
+              />
+            )}
           </Pressable>
         </View>
       </View>
@@ -101,6 +109,9 @@ const styles = StyleSheet.create({
     flexBasis: '30%',
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  pressed: {
+    opacity: 0.5,
   },
 });
 

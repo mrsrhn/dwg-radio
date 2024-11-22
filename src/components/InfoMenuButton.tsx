@@ -18,7 +18,7 @@ function InfoMenuButton({
   return (
     <Pressable
       onPress={onPress}
-      style={styles.container}
+      style={({ pressed }) => [styles.container, pressed && styles.pressed]}
       accessible
       accessibilityLabel={title}
       accessibilityRole="button"
@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.dwgDarkColor,
     fontSize: 15,
+  },
+  pressed: {
+    opacity: 0.5,
   },
 });
 export default InfoMenuButton;

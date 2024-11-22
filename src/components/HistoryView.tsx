@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import HistoryViewItem from './HistoryViewItem';
+import HistoryItem from './HistoryItem';
 import getTimeFromIsoDate from '../utils/getTimeFromIsoDate';
 import useStores from '../hooks/useStores';
 import Colors from '../Colors';
@@ -17,7 +17,7 @@ const HistoryView = observer(() => {
 
       {historyStore.currentHistory.slice(1).map((item, index) => (
         <View key={`${item.raw_title}_${index}`}>
-          <HistoryViewItem
+          <HistoryItem
             title={item.title}
             artist={item.artist}
             time={getTimeFromIsoDate(item.datetime)}

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Colors from '../Colors';
 import useConfig from '../hooks/useConfig';
-import HistoryViewItem from './HistoryViewItem';
+import HistoryItem from './HistoryItem';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -38,16 +38,24 @@ const ProgramView = observer(() => {
             previousDayString
           )}
         >
-          <View style={styles.chevronContainer}>
-            {programStore.radioProgramToDisplay !== 0 && (
-              <Ionicons
-                name="chevron-back-outline"
-                color={Colors.dwgDarkColor}
-                size={20}
-              />
-            )}
-          </View>
-          <Text style={styles.date}>{previousDayString}</Text>
+          {({ pressed }) => (
+            <>
+              <View
+                style={[styles.chevronContainer, pressed && styles.pressed]}
+              >
+                {programStore.radioProgramToDisplay !== 0 && (
+                  <Ionicons
+                    name="chevron-back-outline"
+                    color={Colors.dwgDarkColor}
+                    size={20}
+                  />
+                )}
+              </View>
+              <Text style={[styles.date, pressed && styles.pressed]}>
+                {previousDayString}
+              </Text>
+            </>
+          )}
         </Pressable>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
@@ -65,21 +73,29 @@ const ProgramView = observer(() => {
             nextDayString
           )}
         >
-          <Text style={styles.date}>{nextDayString}</Text>
-          <View style={styles.chevronContainer}>
-            {programStore.radioProgramToDisplay !== indexForLastDay && (
-              <Ionicons
-                name="chevron-forward-outline"
-                color={Colors.dwgDarkColor}
-                size={20}
-              />
-            )}
-          </View>
+          {({ pressed }) => (
+            <>
+              <Text style={[styles.date, pressed && styles.pressed]}>
+                {nextDayString}
+              </Text>
+              <View
+                style={[styles.chevronContainer, pressed && styles.pressed]}
+              >
+                {programStore.radioProgramToDisplay !== indexForLastDay && (
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    color={Colors.dwgDarkColor}
+                    size={20}
+                  />
+                )}
+              </View>
+            </>
+          )}
         </Pressable>
       </View>
       {programItems.map((item, index) => (
         <View key={item.id}>
-          <HistoryViewItem
+          <HistoryItem
             title={item.title}
             artist={item.artist}
             time={item.time}
@@ -131,6 +147,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     flex: 1,
+  },
+  pressed: {
+    opacity: 0.5,
   },
 });
 

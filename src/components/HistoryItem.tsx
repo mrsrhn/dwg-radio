@@ -21,7 +21,7 @@ interface HistoryItemProps {
   highlighted?: boolean;
 }
 
-function HistoryViewItem(props: HistoryItemProps) {
+function HistoryItem(props: HistoryItemProps) {
   const { title, artist, time, url, hasBeenPlayed, highlighted } = props;
   const { configStrings } = useConfig();
 
@@ -51,26 +51,39 @@ function HistoryViewItem(props: HistoryItemProps) {
       accessibilityLabel={`${title}, ${configStrings.accessFrom} ${artist}, ${configStrings.accessPlayedAt} ${time} ${configStrings.accessClock}`}
     >
       <Pressable
-        style={styles.titleContainer}
         onPress={() => (clickable ? openInDwgLoad() : () => {})}
+        style={styles.titleContainer}
       >
-        <Text style={highlighted ? styles.titleHighlighted : styles.title}>
-          {title}
-        </Text>
-        <Text style={styles.artist}>{artist}</Text>
+        {({ pressed }) => (
+          <>
+            <View>
+              <Text
+                style={{
+                  ...(highlighted ? styles.titleHighlighted : styles.title),
+                  ...(pressed && clickable ? styles.titlePressed : {}),
+                }}
+              >
+                {title}
+              </Text>
+              <Text style={styles.artist}>{artist}</Text>
+            </View>
+            {clickable ? (
+              <View
+                style={{
+                  ...styles.externalLinkContainer,
+                  ...(pressed && clickable ? styles.titlePressed : {}),
+                }}
+                accessibilityLabel={configStrings.accessOpenInDwgLoad}
+              >
+                <Image
+                  style={styles.externalLinkImage}
+                  source={require('../../assets/external-link.svg')}
+                />
+              </View>
+            ) : null}
+          </>
+        )}
       </Pressable>
-      {clickable ? (
-        <Pressable
-          style={styles.externalLinkContainer}
-          onPress={openInDwgLoad}
-          accessibilityLabel={configStrings.accessOpenInDwgLoad}
-        >
-          <Image
-            style={styles.externalLinkImage}
-            source={require('../../assets/external-link.svg')}
-          />
-        </Pressable>
-      ) : null}
       <View style={styles.timeContainer}>
         <Text style={styles.time}>{time}</Text>
       </View>
@@ -87,8 +100,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Dimensions.get('window').width > 320 ? 20 : 0,
   },
   titleContainer: {
-    maxWidth: '75%',
     textAlign: 'left',
+    maxWidth: '75%',
+    flexDirection: 'row',
   },
   externalLinkContainer: {
     paddingTop: 3,
@@ -118,6 +132,9 @@ const styles = StyleSheet.create({
     color: Colors.dwgGreyColor,
     fontSize: 12,
   },
+  titlePressed: {
+    opacity: 0.5,
+  },
 });
 
-export default HistoryViewItem;
+export default HistoryItem;
