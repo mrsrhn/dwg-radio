@@ -30,6 +30,7 @@ const HistoryView = observer(() => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: 10,
     borderRadius: 20,
     backgroundColor: Colors.dwgBackgroundColor,
   },

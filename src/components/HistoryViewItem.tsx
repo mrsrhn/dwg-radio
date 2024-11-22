@@ -6,6 +6,7 @@ import {
   Pressable,
   Linking,
   Alert,
+  Dimensions,
 } from 'react-native';
 import Colors from '../Colors';
 import useConfig from '../hooks/useConfig';
@@ -80,13 +81,13 @@ function HistoryViewItem(props: HistoryItemProps) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: 20,
     paddingVertical: 10,
     borderTopWidth: 1,
     borderTopColor: 'white',
+    paddingHorizontal: Dimensions.get('window').width > 320 ? 20 : 0,
   },
   titleContainer: {
-    maxWidth: '80%',
+    maxWidth: '75%',
     textAlign: 'left',
   },
   externalLinkContainer: {
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     height: 10,
     paddingLeft: 2,
   },
-  timeContainer: { width: '15%', flex: 1 },
+  timeContainer: { width: '20%', flex: 1 },
   title: {
     color: Colors.dwgDarkColor,
   },
