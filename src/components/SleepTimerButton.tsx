@@ -12,7 +12,7 @@ import useConfig from '../hooks/useConfig';
 import useStores from '../hooks/useStores';
 import generateTimeString from '../utils/generateTimeString';
 
-const SLEEP_TIMER_OPTIONS = [120, 60, 30, 15, 10, 5];
+const SLEEP_TIMER_OPTIONS = [5, 10, 15, 30, 60, 120];
 
 const SleepTimerButton = observer(() => {
   const { configStrings } = useConfig();
@@ -21,6 +21,11 @@ const SleepTimerButton = observer(() => {
 
   const actions: MenuAction[] = useMemo(
     () => [
+      {
+        id: '0',
+        title: configStrings.off,
+        state: currentSleepTimerOption === '0' ? 'on' : 'off',
+      },
       ...SLEEP_TIMER_OPTIONS.map(
         (option) =>
           ({
@@ -30,11 +35,6 @@ const SleepTimerButton = observer(() => {
             state: option.toString() === currentSleepTimerOption ? 'on' : 'off',
           } as MenuAction)
       ),
-      {
-        id: '0',
-        title: configStrings.off,
-        state: currentSleepTimerOption === '0' ? 'on' : 'off',
-      },
     ],
     [configStrings.minutes, configStrings.off, currentSleepTimerOption]
   );
