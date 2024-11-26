@@ -119,8 +119,8 @@ android {
         applicationId 'net.dwg_load.dwgload.de'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 25
-        versionName "2.0.1"
+        versionCode 29
+        versionName "2.0.0"
     }
     signingConfigs {
         debug {

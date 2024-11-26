@@ -39,4 +39,4 @@ yarn-error.*
 .expo
 dist/
 web-build/
-android/app/*
+android/app/release/*
