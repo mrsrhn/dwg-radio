@@ -116,7 +116,7 @@ android {
 
     namespace 'net.dwg_load.dwgload.de'
     defaultConfig {
-        applicationId 'net.dwg_load.dwgload.de'
+        applicationId 'net.dwgradio.ru'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 29
