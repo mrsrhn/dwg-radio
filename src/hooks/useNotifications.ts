@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { MMKV } from 'react-native-mmkv';
 import useConfig from './useConfig';
+import AJV from 'ajv';
+import { notificationResponseSchema } from '../notificationSchema';
 
+const ajv = new AJV();
 const storage = new MMKV();
 
 interface Notification {
@@ -24,6 +27,15 @@ export const useNotifications = () => {
             try {
                 const response = await fetch(configBase.urlNotifications);
                 const data: NotificationResponse = await response.json();
+
+                // Validate the response data
+                const validate = ajv.compile(notificationResponseSchema);
+                const valid = validate(data);
+
+                if (!valid) {
+                    console.error('Invalid response data:', validate.errors);
+                    return; // Exit if validation fails
+                }
 
                 // Check if we have this notification id in storage
                 const shownNotifications = storage.getString('shown-notifications');
