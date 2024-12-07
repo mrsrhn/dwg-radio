@@ -8,8 +8,11 @@ import DWGBottomSheet from './DWGBottomSheet';
 import DWGPager from './DWGPager';
 import InfoMenuBottomSheet from './InfoMenuBottomSheet';
 import NoConnectionView from './NoConnectionView';
+import { useNotifications } from '../hooks/useNotifications';
+import NotificationHeader from './NotificationHeader';
 
 function Layout() {
+  const notification = useNotifications();
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const onInfoMenuButton = () => {
@@ -20,6 +23,7 @@ function Layout() {
   return (
     <>
       <StatusBar style="dark" />
+      {notification && <NotificationHeader notification={notification} />}
       <NoConnectionView />
       <View style={{ flex: 1 }}>
         <DWGPager />

@@ -3,24 +3,40 @@ import { MMKV } from 'react-native-mmkv';
 import useConfig from './useConfig';
 import AJV from 'ajv';
 import { notificationResponseSchema } from '../notificationSchema';
+import { isNotificationValid } from '../utils/notifications';
 
 const ajv = new AJV();
+const validate = ajv.compile(notificationResponseSchema);
 const storage = new MMKV();
 
-interface Notification {
+export interface Notification {
     id: number;
+    title: string;
     message: string;
+    icon: string;
+    color?: string;
+    link?: {
+        title: string;
+        url: string;
+    };
+    minAppVersion: {
+        ios: string;
+        android: string;
+    };
+    maxAppVersion: {
+        ios: string;
+        android: string;
+    };
 }
 
 interface NotificationResponse {
-    messages: Notification[];
+    notifications: Notification[];
 }
 
 export const useNotifications = () => {
     const { configBase } = useConfig();
 
-    const [modalVisible, setModalVisible] = useState(false);
-    const [message, setMessage] = useState('');
+    const [notification, setNotification] = useState<Notification | undefined>();
 
     useEffect(() => {
         const checkForNotifications = async () => {
@@ -29,7 +45,6 @@ export const useNotifications = () => {
                 const data: NotificationResponse = await response.json();
 
                 // Validate the response data
-                const validate = ajv.compile(notificationResponseSchema);
                 const valid = validate(data);
 
                 if (!valid) {
@@ -44,24 +59,32 @@ export const useNotifications = () => {
                 console.log('Already shown notification IDs:', shownNotificationIds);
 
                 // Find first unshown notification
-                const unshownNotification = data.messages.find(
-                    (msg) => !shownNotificationIds.includes(msg.id)
+                const unshownNotification = data.notifications.find(
+                    (notification) => !shownNotificationIds.includes(notification.id)
                 );
 
-                if (unshownNotification) {
-                    console.log('Found unshown notification:', unshownNotification);
-                    setMessage(unshownNotification.message);
-                    setModalVisible(true);
-
-                    // Store the message id as shown
-                    storage.set(
-                        'shown-notifications',
-                        JSON.stringify([...shownNotificationIds, unshownNotification.id])
-                    );
-                    console.log('Added new notification ID to shown notifications');
-                } else {
-                    console.log('All notifications have been shown already');
+                if (!unshownNotification) {
+                    console.log('No unshown notifications found');
+                    return;
                 }
+
+                if (!isNotificationValid(unshownNotification)) {
+                    console.log('Notification is not valid');
+                    return;
+                }
+
+
+                console.log('Found valid unshown notification:', unshownNotification);
+                setNotification(unshownNotification);
+
+
+                // Store the message id as shown
+                storage.set(
+                    'shown-notifications',
+                    JSON.stringify([...shownNotificationIds, unshownNotification.id])
+                );
+                console.log('Added new notification ID to shown notifications');
+
             } catch (error) {
                 console.log('Failed to fetch remote notifications:', error);
             }
@@ -70,5 +93,5 @@ export const useNotifications = () => {
         checkForNotifications();
     }, []);
 
-    return [modalVisible, setModalVisible, message] as const;
+    return notification;
 };
