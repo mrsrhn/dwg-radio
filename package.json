@@ -31,6 +31,7 @@
     "react-native-animated-pagination-dots": "^0.1.73",
     "react-native-background-timer-android": "^1.0.4",
     "react-native-gesture-handler": "~2.16.1",
+    "react-native-mmkv": "^2.12.2",
     "react-native-pager-view": "6.3.0",
     "react-native-reanimated": "~3.10.1",
     "react-native-track-player": "^4.1.1"

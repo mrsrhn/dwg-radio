@@ -3,7 +3,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Layout from './src/components/layout';
 import StoreProvider from './src/providers/storeProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+import { NotificationModal } from './src/components/NotificationModal';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -18,6 +18,7 @@ export default function App() {
       <StoreProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Layout />
+          <NotificationModal />
         </GestureHandlerRootView>
       </StoreProvider>
     </QueryClientProvider>

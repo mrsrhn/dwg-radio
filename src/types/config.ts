@@ -17,6 +17,7 @@ interface ConfigBase {
   urlProgram: string;
   urlPur: string;
   urlLyra: string;
+  urlNotifications: string;
   urlHistoryRadio: string;
   urlHistoryPur: string;
   urlHistoryLyra: string;

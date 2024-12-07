@@ -1,6 +1,7 @@
 {
   "de": {
     "urlRadio": "https://server23644.streamplus.de",
+    "urlNotifications": "https://radio.dwgradio.net/de/appdata/app_notifications_de.json",
     "showProgramForRadio": true,
     "urlProgram": "https://radio.dwgradio.net/de/appdata/program_v1.json",
     "urlPur": "https://server25531.streamplus.de",
@@ -76,6 +77,7 @@
   },
   "cz": {
     "urlRadio": "https://server25530.streamplus.de",
+    "urlNotifications": "https://radio.dwgradio.net/cz/appdata/app_notifications_cz.json",
     "showProgramForRadio": false,
     "urlProgram": "",
     "urlPur": "https://server35237.streamplus.de",
@@ -128,6 +130,7 @@
   },
   "ru": {
     "urlRadio": "https://server32349.streamplus.de",
+    "urlNotifications": "https://radio.dwgradio.net/ru/appdata/app_notifications_ru.json",
     "showProgramForRadio": false,
     "urlProgram": "",
     "urlPur": "https://server36510.streamplus.de",
