@@ -3,7 +3,7 @@ import { Notification } from "../hooks/useNotifications";
 import * as Application from 'expo-application';
 
 export const isNotificationValid = (data: Notification) => {
-    return appVersionIsValid(data);
+    return appVersionIsValid(data) && matchesCurrentEnvironment(data);
 }
 
 export const appVersionIsValid = (data: Notification) => {
@@ -17,4 +17,8 @@ export const appVersionIsValid = (data: Notification) => {
         return false;
     }
     return appVersion >= minAppVersion && appVersion <= maxAppVersion;
+}
+
+export const matchesCurrentEnvironment = (data: Notification) => {
+    return ((__DEV__ && !data.production) || (!__DEV__ && data.production));
 }

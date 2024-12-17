@@ -15,6 +15,7 @@ export interface Notification {
     message: string;
     icon: string;
     color?: string;
+    production?: boolean;
     link?: {
         title: string;
         url: string;

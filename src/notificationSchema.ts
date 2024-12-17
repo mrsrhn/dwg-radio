@@ -10,6 +10,7 @@ export const notificationResponseSchema = {
                     title: { type: 'string' },
                     icon: { type: 'string' },
                     color: { type: 'string' },
+                    production: { type: 'boolean' },
                     message: { type: 'string' },
                     link: {
                         type: 'object',
