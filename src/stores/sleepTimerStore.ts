@@ -74,14 +74,14 @@ class SleepTimerStore {
     }
   };
 
-  timerCallback = (callbackAfterFinish: () => void) => {
+  timerCallback = (callbackAfterFinish?: () => void) => {
     if (this.sleepTimerProgress === 0 || !this.sleepTimerProgress) {
       if (this.sleepTimerInterval) {
         this.clearDwgInterval(this.sleepTimerInterval);
       }
       this.playerStore.stop();
       this.setSleepTimerProgress(undefined);
-      callbackAfterFinish();
+      callbackAfterFinish?.();
     } else {
       this.setSleepTimerProgress(this.sleepTimerProgress - 1);
     }

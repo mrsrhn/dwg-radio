@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "dwg-radio",
+    "name": "DWG Radio",
     "slug": "dwg-radio",
-    "version": "1.0.0",
+    "version": "3.1.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -13,18 +14,32 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "mariusrhein.DWGRadio"
+      "bundleIdentifier": "mariusrhein.DWGRadio",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"]
+      }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "net.dwg_load.dwgload.de"
+      "icon": "./assets/icon_android.png",
+      "versionCode": 32,
+      "package": "net.dwg_load.dwgload.de",
+      "targetSdkVersion": 35
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-asset"]
+    "plugins": [
+      "expo-asset",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0"
+          }
+        }
+      ]
+    ]
   }
 }

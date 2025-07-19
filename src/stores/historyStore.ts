@@ -63,7 +63,7 @@ class HistoryStore {
     TrackPlayer.updateNowPlayingMetadata({
       title: historyData[0].title,
       artist: historyData[0].artist,
-      artwork: require('../../assets/dwgradio.png'),
+      artwork: require('../../assets/icon.png'),
     });
   }
 

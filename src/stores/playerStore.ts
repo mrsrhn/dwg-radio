@@ -62,6 +62,7 @@ class PlayerStore {
   private init = async () => {
     this.updateConnectionState();
     await TrackPlayer.setupPlayer({
+
       iosCategory: IOSCategory.Playback,
       iosCategoryMode: IOSCategoryMode.SpokenAudio,
       iosCategoryOptions: [
@@ -76,10 +77,10 @@ class PlayerStore {
     this.registerEvents();
 
     await TrackPlayer.updateOptions({
+
       capabilities: [Capability.Play, Capability.Pause],
       android: {
-        // This is the default behavior
-        appKilledPlaybackBehavior: AppKilledPlaybackBehavior.PausePlayback,
+        appKilledPlaybackBehavior: AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
       },
     });
 
@@ -108,7 +109,7 @@ class PlayerStore {
   };
 
   togglePlayer = async () => {
-    const state = await TrackPlayer.getState();
+    const { state } = await TrackPlayer.getPlaybackState()
     if (state === State.Playing) {
       this.stop();
     } else {
