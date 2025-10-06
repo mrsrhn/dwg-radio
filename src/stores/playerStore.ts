@@ -104,8 +104,12 @@ class PlayerStore {
   });
 
   updateChannel = async (selectedChannel: ChannelIndex) => {
-    TrackPlayer.load(this.channels[selectedChannel]);
     this.setSelectedChannel(selectedChannel);
+    await TrackPlayer.reset();
+    await TrackPlayer.load(this.channels[selectedChannel]);
+    if (this.isPlaying) {
+      await TrackPlayer.play();
+    }
   };
 
   togglePlayer = async () => {
