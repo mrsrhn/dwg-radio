@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, reaction } from 'mobx';
+import { makeObservable, observable, action } from 'mobx';
 import { Platform } from 'react-native';
 import Timer from 'react-native-background-timer-android';
 
@@ -22,19 +22,6 @@ class SleepTimerStore {
     });
     this.config = config;
     this.playerStore = playerStore;
-
-    reaction(
-      () => this.playerStore.isPlaying,
-      () => {
-        if (this.sleepTimerProgress) {
-          if (this.playerStore.isPlaying) {
-            this.continueSleepTimer();
-          } else {
-            this.pauseSleepTimer();
-          }
-        }
-      }
-    );
   }
 
   setSleepTimerProgress = action((value: number | undefined) => {
