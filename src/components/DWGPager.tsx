@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   Animated,
@@ -34,6 +34,13 @@ const DWGPager = observer(() => {
   const { configStrings } = useConfig();
   const pagerRef = useRef<PagerView>(null);
 
+  // This enforces the correct selected page when the component is mounted
+  useEffect(() => {
+    if (pagerRef.current && playerStore.selectedChannel != null) {
+      pagerRef.current.setPage(playerStore.selectedChannel);
+    }
+  }, [playerStore.selectedChannel]);
+
   const onPageSelect = useCallback(
     (page: number) => {
       if (page >= 0 && page <= 2) {
@@ -42,7 +49,7 @@ const DWGPager = observer(() => {
     },
     [playerStore]
   );
-  
+
   const onGoBack = () => {
     switch (playerStore.selectedChannel) {
       case 0:
