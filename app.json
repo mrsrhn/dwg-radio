@@ -21,7 +21,7 @@
     },
     "android": {
       "icon": "./assets/icon_android.png",
-      "versionCode": 32,
+      "versionCode": 33,
       "package": "net.dwg_load.dwgload.de"
     },
     "web": {
