@@ -33,6 +33,7 @@
     "react": "19.1.0",
     "react-native": "0.81.4",
     "react-native-animated-pagination-dots": "^0.1.73",
+    "react-native-background-timer": "^2.4.1",
     "react-native-background-timer-android": "^1.0.4",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-mmkv": "^3.3.3",

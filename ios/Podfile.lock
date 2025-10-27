@@ -1548,6 +1548,8 @@ PODS:
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
+  - react-native-background-timer (2.4.1):
+    - React-Core
   - react-native-menu (2.0.0):
     - hermes-engine
     - RCTRequired
@@ -2269,6 +2271,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - "react-native-menu (from `../node_modules/@react-native-menu/menu`)"
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
@@ -2431,6 +2434,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-background-timer:
+    :path: "../node_modules/react-native-background-timer"
   react-native-menu:
     :path: "../node_modules/@react-native-menu/menu"
   react-native-mmkv:
@@ -2570,6 +2575,7 @@ SPEC CHECKSUMS:
   React-logger: 472e292c035c024ac73070cd6cbd011a827136f9
   React-Mapbuffer: 823a2c0e0d1826c784f808174626d5229f59be17
   React-microtasksnativemodule: 70cdf4826e52c7bcf98bc55255c3e30b5455d318
+  react-native-background-timer: 17ea5e06803401a379ebf1f20505b793ac44d0fe
   react-native-menu: 17321e8d0d15af018c56ae7e4e42268ef297f6c3
   react-native-mmkv: 5b164b60a939fb97c3a78a779469d0d24ab7a131
   react-native-pager-view: a944319bf805e66c363ed4fff0101631726fb76b
