@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import RootStore from '../stores/rootStore';
 
-const rootStore = new RootStore();
+export const rootStore = new RootStore();
 export const RootStoreContext = createContext<RootStore>(rootStore);
 
 interface StoreProviderProps {
