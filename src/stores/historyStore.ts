@@ -156,7 +156,11 @@ class HistoryStore {
   }
 
   static async getHistory(url: string) {
-    const { data } = await (await fetch(url)).json();
+    const { data } = await (await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Android 14; Mobile; rv:121.0) Gecko/121.0 Firefox/121.0'
+      }
+    })).json();
     return data as HistoryEntry[];
   }
 }
