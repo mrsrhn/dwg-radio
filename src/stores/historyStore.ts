@@ -55,8 +55,6 @@ class HistoryStore {
 
   init() {
     this.getHistoryRadio().then(this.updateNowPlayingMetadata)
-    this.getHistoryLyra();
-    this.getHistoryPur();
   }
 
   updateNowPlayingMetadata = (historyData: HistoryEntry[]) => {
@@ -116,20 +114,18 @@ class HistoryStore {
   };
 
   updateCurrentHistory = async () => {
-    await Promise.all([this.getHistoryRadio(),
-    this.getHistoryLyra(),
-    this.getHistoryPur()])
     switch (this.playerStore.selectedChannelKey) {
       case 'lyra':
+        await this.getHistoryLyra()
         this.updateHistoryLyra();
         break;
       case 'pur':
+        await this.getHistoryPur()
         this.updateHistoryPur();
         break;
       case 'radio':
+        await this.getHistoryRadio()
         this.updateHistoryRadio();
-        break;
-      default:
         break;
     }
   };
