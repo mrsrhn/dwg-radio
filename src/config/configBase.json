@@ -96,7 +96,9 @@
         {
           "name": "DWGload - Databáze kázání",
           "url": "https://apps.apple.com/de/app/dwg-load-cz/id1620746172",
-          "icon": "logo-apple-appstore"
+          "urlAndroid": "https://play.google.com/store/apps/details?id=net.dwgload.cz",
+          "icon": "logo-apple-appstore",
+          "iconAndroid": "logo-google-playstore"
         },
         {
           "name": "O nás",
@@ -149,7 +151,9 @@
         {
           "name": "DWGload - База проповедей",
           "url": "https://apps.apple.com/de/app/dwg-load-ru/id1630783108",
-          "icon": "logo-apple-appstore"
+          "urlAndroid": "https://play.google.com/store/apps/details?id=net.dwgload.ru",
+          "icon": "logo-apple-appstore",
+          "iconAndroid": "logo-google-playstore"
         },
         {
           "name": "О нас",
